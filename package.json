@@ -1,0 +1,15 @@
+{
+  "name"         : "TaCD-Generator",
+  "version"      : "0.0.1",
+  "description"  : "Generate TaCD for Goldenvale Parks",
+  "main"         : "server.js",
+  "author"       : "kenwalker",
+  "dependencies" : {
+    "express"    : "latest",
+    "request"    : "latest",
+    "cheerio"    : "latest",
+    "async"      : "latest",
+    "hashmap"    : "latest",
+    "sync-request" : "latest"
+  }
+}
