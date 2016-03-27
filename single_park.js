@@ -17,6 +17,8 @@ quarters['2'] = ['04', '05', '06'];
 quarters['3'] = ['07', '08', '09'];
 quarters['4'] = ['10', '11', '12'];
 
+quarters['5'] = ['06', '07', '08', '09'];
+
 var quarterChosen = process.argv[2];
 if (!quarterChosen) quarterChosen = "1";
 
@@ -30,13 +32,13 @@ console.log("");
 
 // goldenvaleParks.set("Annwyn", "469");
 // goldenvaleParks.set("Arrantor", "467");
-goldenvaleParks.set("Bellhollow", "609");
+// goldenvaleParks.set("Bellhollow", "609");
 // goldenvaleParks.set("Bitter Coast", "254");
 // goldenvaleParks.set("Blightstone Hallow", "398");
 // goldenvaleParks.set("Boreal Dale", "363");
 // goldenvaleParks.set("Bridgehaven", "662");
 // goldenvaleParks.set("Caerbannog", "613");
-// goldenvaleParks.set("Caradoc Hold", "198");
+goldenvaleParks.set("Caradoc Hold", "198");
 // goldenvaleParks.set("Empire's Grove", "347");
 // goldenvaleParks.set("Falcon's Rest", "587");
 // goldenvaleParks.set("Goldenvale", "166");
@@ -88,34 +90,35 @@ function printPark(parkID, parkName) {
     console.log("Champion: " + champion['player'] + " (ORK id: " + champion['user'] + ") ");
     console.log("\r\nEmail or Contact Info: ____________________________________\r\n");
 
-    aURL = 'http://amtgard.com/ork/orkui/index.php?Route=Reports/attendance/Park/' + parkID + '/Months/20';
+    aURL = 'http://amtgard.com/ork/orkui/index.php?Route=Reports/attendance/Park/' + parkID + '/Months/5';
     getAttendanceDates(aURL);
 
     console.log("Year\tMonth\t1-15th\t16th-on\ttotal");
     playerList.forEach(function(aMonthMap, aYear) {
         aMonthMap.forEach(function(breakdown, aMonth) {
-            console.log(aYear + "\t" + aMonth + "\t" + breakdown.get('begin').length + "\t" + breakdown.get('end').length + "\t" + breakdown.get('month').length);
+            if (quarter.indexOf(aMonth) != -1) {
+                console.log(aYear + "\t" + aMonth + "\t" + breakdown.get('begin').length + "\t" + breakdown.get('end').length + "\t" + breakdown.get('month').length);
+            }
         })
     })
 
-    // console.log("Printing out unique logins per month section");
-    // playerList.forEach(function(aMonthMap, aYear) {
-    //     aMonthMap.forEach(function(breakdown, aMonth) {
-    //         if (aMonth > 3) {
-    //             return;
-    //         }
-    //         console.log(aYear + "\t" + aMonth + "\t1-15th total=" + breakdown.get('begin').length);
-    //         breakdown.get('begin').forEach(function (aPlayer) {
-    //             console.log(aPlayer + ", ");
-    //         })
-    //         console.log(aYear + "\t" + aMonth + "\t16-on total=" + breakdown.get('end').length);
-    //         breakdown.get('begin').forEach(function (aPlayer) {
-    //             console.log(aPlayer + ", ");
-    //         })
-    //         console.log(aYear + "\t" + aMonth + "\ttotal=" + breakdown.get('month').length);
-    //         // .length + "\t" + breakdown.get('end').length + "\t" + breakdown.get('month').length);
-    //     })
-    // })
+    console.log("Printing out unique logins per month section");
+    playerList.forEach(function(aMonthMap, aYear) {
+        aMonthMap.forEach(function(breakdown, aMonth) {
+            if (quarter.indexOf(aMonth) != -1) {
+                console.log(aYear + "\t" + aMonth + "\t1-15th total=" + breakdown.get('begin').length);
+                breakdown.get('begin').forEach(function (aPlayer) {
+                    console.log(aPlayer + ", ");
+                })
+                console.log(aYear + "\t" + aMonth + "\t16-on total=" + breakdown.get('end').length);
+                breakdown.get('begin').forEach(function (aPlayer) {
+                    console.log(aPlayer + ", ");
+                })
+                console.log(aYear + "\t" + aMonth + "\ttotal=" + breakdown.get('month').length);
+            }
+            // .length + "\t" + breakdown.get('end').length + "\t" + breakdown.get('month').length);
+        })
+    })
     console.log("");
 }
 
